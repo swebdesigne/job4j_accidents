@@ -42,3 +42,11 @@ table tr:nth-child(odd) {
 .add_accident a:hover {
     text-decoration: none;
 }
+
+.msgError {
+    text-align: center;
+    color: red;
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 24px;
+}

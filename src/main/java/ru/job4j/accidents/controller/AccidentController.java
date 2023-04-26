@@ -4,16 +4,14 @@ import lombok.AllArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.service.AccidentService;
 
 @Controller
 @AllArgsConstructor
 @ThreadSafe
+@RequestMapping("accident")
 public class AccidentController {
     private final AccidentService accidentService;
 
@@ -28,10 +26,19 @@ public class AccidentController {
         return "redirect:/";
     }
 
-    @GetMapping("/formEditAccident/{id}")
-    public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("id", id);
+    @GetMapping("/formEditAccident")
+    public String edit(Model model, @RequestParam("id") int id) {
+        var accident = accidentService.findById(id);
+        if (accident.isEmpty()) {
+            return "redirect:/accident/error";
+        }
+        model.addAttribute("accident", accident.get());
         return "accident/editAccident";
+    }
+
+    @GetMapping("/error")
+    public String error() {
+        return "accident/error";
     }
 
     @PostMapping("/updateAccident")

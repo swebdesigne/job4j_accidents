@@ -7,6 +7,7 @@ import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.repository.AccidentMem;
 
 import java.util.List;
+import java.util.Optional;
 
 @ThreadSafe
 @AllArgsConstructor
@@ -22,8 +23,8 @@ public class AccidentService {
         return accidentMem.save(accident);
     }
 
-    public Accident getById(int id) {
-        return accidentMem.getById(id);
+    public Optional<Accident> findById(int id) {
+        return accidentMem.findById(id);
     }
 
     public void update(Accident accident) {

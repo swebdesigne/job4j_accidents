@@ -6,19 +6,20 @@
                 Редатирование инцидента
             </div>
             <div class="card-body">
-                <form th:action="@{/updateAccident}" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="id" th:value="${id}"/>
+                <form th:action="@{/accident/updateAccident}" method="POST" enctype="multipart/form-data"
+                      th:object="${accident}">
+                    <input type="hidden" name="id" th:field="*{id}"/>
                     <div class="form-group">
                         <label for="name">Имя</label>
-                        <input type="text" class="form-control" name="name" id="name">
+                        <input type="text" class="form-control" name="name" id="name" th:field="*{name}">
                     </div>
                     <div class="form-group">
                         <label for="text">Текст</label>
-                        <input type="text" class="form-control" name="text" id="text">
+                        <input type="text" class="form-control" name="text" id="text" th:field="*{text}">
                     </div>
                     <div class="form-group">
                         <label for="address">Адрес</label>
-                        <input type="text" class="form-control" name="address" id="address">
+                        <input type="text" class="form-control" name="address" id="address" th:field="*{address}">
                     </div>
                     <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
                 </form>

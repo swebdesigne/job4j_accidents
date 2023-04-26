@@ -7,9 +7,9 @@ import ru.job4j.accidents.model.Accident;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.IntStream;
 
 @Repository
 @ThreadSafe
@@ -27,8 +27,8 @@ public class AccidentMem {
         return accident;
     }
 
-    public Accident getById(int id) {
-        return accidents.get(id);
+    public Optional<Accident> findById(int id) {
+        return Optional.ofNullable(accidents.get(id));
     }
 
     public void update(Accident accident) {
