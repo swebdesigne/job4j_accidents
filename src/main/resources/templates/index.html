@@ -57,6 +57,20 @@
             <div class="nav_user-name" th:text="${user}"></div>
         </div>
     </nav>
+    <table>
+        <tr>
+            <th>№</th>
+            <th>Наименование</th>
+            <th>Описание</th>
+            <th>Адрес</th>
+        </tr>
+        <tr th:each="accident : ${accidents}">
+            <td th:text="${accident.id + '.'}"></td>
+            <td th:text="${accident.name}"></td>
+            <td th:text="${accident.text}"></td>
+            <td th:text="${accident.address}"></td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>
