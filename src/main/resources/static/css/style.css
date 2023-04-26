@@ -1,3 +1,11 @@
+.accident {
+    margin-top: 20px;
+}
+
+nav {
+    width: 100%;
+}
+
 .nav_user-name {
     margin-left: 10px;
 }
@@ -16,4 +24,21 @@ table th {
 
 table tr:nth-child(odd) {
     background: lightgray;
+}
+
+.add_accident {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.add_accident a {
+    max-width: 300px;
+    border: 1px solid lightgray;
+    padding: 5px 10px;
+    background: gray;
+    color: #ffffff;
+}
+
+.add_accident a:hover {
+    text-decoration: none;
 }

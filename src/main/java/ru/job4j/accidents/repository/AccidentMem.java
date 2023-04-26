@@ -8,28 +8,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 @Repository
 @ThreadSafe
 public class AccidentMem {
-    Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
-
-    public AccidentMem() {
-        IntStream.range(1, 6).forEach(this::save);
-    }
-
-    private void save(int index) {
-        accidents.putIfAbsent(index, Accident.builder()
-                .id(index)
-                .name("Accident #" + index)
-                .text("Some text")
-                .address("Address #" + index)
-                .build()
-        );
-    }
+    private final AtomicInteger count = new AtomicInteger(0);
+    private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
 
     public List<Accident> findAll() {
         return new ArrayList<>(accidents.values());
+    }
+
+    public Accident save(Accident accident) {
+        accident.setId(count.incrementAndGet());
+        accidents.putIfAbsent(count.get(), accident);
+        return accident;
+    }
+
+    public Accident getById(int id) {
+        return accidents.get(id);
+    }
+
+    public void update(Accident accident) {
+        accidents.put(accident.getId(), accident);
     }
 }

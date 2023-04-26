@@ -17,4 +17,16 @@ public class AccidentService {
     public List<Accident> findAll() {
         return accidentMem.findAll();
     }
+
+    public Accident save(Accident accident) {
+        return accidentMem.save(accident);
+    }
+
+    public Accident getById(int id) {
+        return accidentMem.getById(id);
+    }
+
+    public void update(Accident accident) {
+        accidentMem.update(accident);
+    }
 }
