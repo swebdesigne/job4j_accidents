@@ -6,6 +6,7 @@
             <th>Наименование</th>
             <th>Описание</th>
             <th>Адрес</th>
+            <th>Тип</th>
             <th></th>
         </tr>
         <tr th:each="accident : ${accidents}">
@@ -13,6 +14,7 @@
             <td th:text="${accident.name}"></td>
             <td th:text="${accident.text}"></td>
             <td th:text="${accident.address}"></td>
+            <td th:text="${accident.type.name}"></td>
             <td>
                 <a th:href="@{|/accident/formEditAccident?id=${accident.id}|}">
                     Редактировать

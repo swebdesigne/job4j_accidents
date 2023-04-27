@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
+import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.repository.AccidentMem;
 
 import java.util.List;
@@ -29,5 +30,9 @@ public class AccidentService {
 
     public void update(Accident accident) {
         accidentMem.update(accident);
+    }
+
+    public List<AccidentType> findAllTypes() {
+        return accidentMem.findAllTypes();
     }
 }

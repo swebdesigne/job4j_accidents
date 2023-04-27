@@ -16,7 +16,8 @@ public class AccidentController {
     private final AccidentService accidentService;
 
     @GetMapping("/addAccident")
-    public String viewCreateAccident() {
+    public String viewCreateAccident(Model model) {
+        model.addAttribute("types", accidentService.findAllTypes());
         return "accident/createAccident";
     }
 
@@ -33,6 +34,7 @@ public class AccidentController {
             return "redirect:/accident/error";
         }
         model.addAttribute("accident", accident.get());
+        model.addAttribute("types", accidentService.findAllTypes());
         return "accident/editAccident";
     }
 
