@@ -54,6 +54,7 @@ public class AccidentMem {
     public List<Rule> findAllRules() {
         return new ArrayList<>(rules.values());
     }
+
     public Set<Rule> findRulesByIds(String[] ids) {
         return Arrays.stream(ids)
                 .map(index -> rules.get(Integer.parseInt(index)))

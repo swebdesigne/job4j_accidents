@@ -1,4 +1,4 @@
-package ru.job4j.accidents.service;
+package ru.job4j.accidents.repository;
 
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
@@ -8,21 +8,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public interface AccidentService {
-    boolean update(Accident accident);
-
+public interface AccidentRepository {
     List<Accident> findAll();
 
-    Set<Rule> findRulesByIds(String[] ids);
-
-    Set<Rule> findAllRules();
+   Optional<Accident> save(Accident accident);
 
     Optional<Accident> findById(int id);
 
-    AccidentType findTypeById(int id);
+    boolean update(Accident accident);
 
     List<AccidentType> findAllTypes();
 
-    Optional<Accident> save(Accident accident);
+    Set<Rule> findAllRules();
 
+    Set<Rule> findRulesByIds(String[] ids);
 }
