@@ -11,15 +11,13 @@ import java.util.Set;
 public interface AccidentService {
     boolean update(Accident accident);
 
-    List<Accident> findAll();
+    Set<Accident> findAll();
 
     Set<Rule> findRulesByIds(String[] ids);
 
     Set<Rule> findAllRules();
 
     Optional<Accident> findById(int id);
-
-    AccidentType findTypeById(int id);
 
     List<AccidentType> findAllTypes();
 

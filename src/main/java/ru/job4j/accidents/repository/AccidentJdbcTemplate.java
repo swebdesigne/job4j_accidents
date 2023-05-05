@@ -47,8 +47,6 @@ public class AccidentJdbcTemplate implements AccidentRepository {
 
     private static final String SAVE_RULE = "insert into accidents_rules (accident_id, rule_id) values (?, ?)";
 
-    private static final String FIND_TYPE_BY_ID = "select id, name from types where id = (?)";
-
     private static final String FIND_ALL_TYPES = "select id, name from types";
 
     private final JdbcTemplate jdbc;
@@ -93,14 +91,14 @@ public class AccidentJdbcTemplate implements AccidentRepository {
     }
 
     @Override
-    public List<Accident> findAll() {
+    public Set<Accident> findAll() {
         log.info("Find all accidents");
         try {
-            return jdbc.query(SELECT_ACCIDENT, this::createAccident);
+            return new HashSet<>(jdbc.query(SELECT_ACCIDENT, this::createAccident));
         } catch (Exception e) {
             log.error("Find all accidents error occurred ", e);
         }
-        return new ArrayList<>();
+        return new HashSet<>();
     }
 
     @Override
@@ -183,16 +181,6 @@ public class AccidentJdbcTemplate implements AccidentRepository {
         } catch (Exception e) {
             log.error("Save the rule error occurred ", e);
         }
-    }
-
-    public AccidentType findTypeById(int id) {
-        log.info("Find the type by id");
-        try {
-            return jdbc.queryForObject(FIND_TYPE_BY_ID, this::createType, id);
-        } catch (Exception e) {
-            log.error("Find the type by id error occurred ", e);
-        }
-        return new AccidentType();
     }
 
     public List<AccidentType> findAllTypes() {

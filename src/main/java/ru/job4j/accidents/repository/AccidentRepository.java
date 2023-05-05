@@ -9,9 +9,9 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface AccidentRepository {
-    List<Accident> findAll();
+    Set<Accident> findAll();
 
-   Optional<Accident> save(Accident accident);
+    Optional<Accident> save(Accident accident);
 
     Optional<Accident> findById(int id);
 

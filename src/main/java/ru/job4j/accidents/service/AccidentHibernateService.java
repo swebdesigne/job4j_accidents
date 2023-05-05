@@ -2,11 +2,12 @@ package ru.job4j.accidents.service;
 
 import lombok.AllArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
-import ru.job4j.accidents.repository.AccidentJdbcTemplate;
+import ru.job4j.accidents.repository.AccidentHibernate;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,41 +16,42 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 @ThreadSafe
-public class AccidentJdbcService implements AccidentService {
-    private final AccidentJdbcTemplate accidentJdbcTemplate;
+@Primary
+public class AccidentHibernateService implements AccidentService {
+    private final AccidentHibernate accidentHibernate;
 
     @Override
     public boolean update(Accident accident) {
-        return accidentJdbcTemplate.update(accident);
+        return accidentHibernate.update(accident);
     }
 
     @Override
     public Set<Accident> findAll() {
-        return accidentJdbcTemplate.findAll();
+        return accidentHibernate.findAll();
     }
 
     @Override
     public Set<Rule> findRulesByIds(String[] ids) {
-        return accidentJdbcTemplate.findRulesByIds(ids);
+        return accidentHibernate.findRulesByIds(ids);
     }
 
     @Override
     public Set<Rule> findAllRules() {
-        return accidentJdbcTemplate.findAllRules();
+        return accidentHibernate.findAllRules();
     }
 
     @Override
     public Optional<Accident> findById(int id) {
-        return accidentJdbcTemplate.findById(id);
+        return accidentHibernate.findById(id);
     }
 
     @Override
     public List<AccidentType> findAllTypes() {
-        return accidentJdbcTemplate.findAllTypes();
+        return accidentHibernate.findAllTypes();
     }
 
     @Override
     public Optional<Accident> save(Accident accident) {
-        return accidentJdbcTemplate.save(accident);
+        return accidentHibernate.save(accident);
     }
 }
