@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 public class AccidentController {
     @Autowired
     @Qualifier("accidentHibernateService")
-    private AccidentService accidentService;
+    private final AccidentService accidentService;
 
     @GetMapping("/addAccident")
     public String viewCreateAccident(Model model) {
