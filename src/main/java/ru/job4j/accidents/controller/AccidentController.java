@@ -2,13 +2,13 @@ package ru.job4j.accidents.controller;
 
 import lombok.AllArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.accidents.model.Accident;
-import ru.job4j.accidents.service.AccidentService;
+import ru.job4j.accidents.service.AccidentDataService;
+import ru.job4j.accidents.service.AccidentRuleDataService;
+import ru.job4j.accidents.service.AccidentTypeDataService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,34 +17,34 @@ import javax.servlet.http.HttpServletRequest;
 @ThreadSafe
 @RequestMapping("accident")
 public class AccidentController {
-    @Autowired
-    @Qualifier("accidentHibernateService")
-    private final AccidentService accidentService;
+    private final AccidentDataService service;
+    private final AccidentRuleDataService rule;
+    private final AccidentTypeDataService type;
 
     @GetMapping("/addAccident")
     public String viewCreateAccident(Model model) {
-        model.addAttribute("types", accidentService.findAllTypes());
-        model.addAttribute("rules", accidentService.findAllRules());
+        model.addAttribute("types", type.findAll());
+        model.addAttribute("rules", rule.findAll());
         return "accident/createAccident";
     }
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
         String[] ids = req.getParameterValues("rIds");
-        accident.setRules(accidentService.findRulesByIds(ids));
-        accidentService.save(accident);
+        accident.setRules(rule.findByIdIn(ids));
+        service.save(accident);
         return "redirect:/";
     }
 
     @GetMapping("/formEditAccident")
     public String edit(Model model, @RequestParam("id") int id) {
-        var accident = accidentService.findById(id);
+        var accident = service.findById(id);
         if (accident.isEmpty()) {
             return "redirect:/accident/error";
         }
         model.addAttribute("accident", accident.get());
-        model.addAttribute("types", accidentService.findAllTypes());
-        model.addAttribute("rules", accidentService.findAllRules());
+        model.addAttribute("types", type.findAll());
+        model.addAttribute("rules", rule.findAll());
         return "accident/editAccident";
     }
 
@@ -56,8 +56,8 @@ public class AccidentController {
     @PostMapping("/updateAccident")
     public String update(@ModelAttribute Accident accident, HttpServletRequest req) {
         String[] ids = req.getParameterValues("rIds");
-        accident.setRules(accidentService.findRulesByIds(ids));
-        if (!accidentService.update(accident)) {
+        accident.setRules(rule.findByIdIn(ids));
+        if (!service.update(accident)) {
             return "redirect:/accident/updateError";
         }
         return "redirect:/";

@@ -11,7 +11,7 @@ import java.util.Set;
 public interface AccidentService {
     boolean update(Accident accident);
 
-    Set<Accident> findAll();
+    Iterable<Accident> findAll();
 
     Set<Rule> findRulesByIds(String[] ids);
 
