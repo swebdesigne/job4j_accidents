@@ -50,3 +50,6 @@ table tr:nth-child(odd) {
     font-weight: bold;
     font-size: 24px;
 }
+.nav_user-name {
+    margin-left: 20px;
+}

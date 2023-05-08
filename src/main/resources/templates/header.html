@@ -43,7 +43,13 @@
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
-            <div class="nav_user-name" th:if="${user != null}" th:text="${user.username}"></div>
+            <div class="nav_user-name" th:if="${user != null}">
+                <span th:text="${user.username}"></span> /
+                <a th:href="@{/logout}">Выйти</a>
+            </div>
+            <div class="nav_user-name" th:if="${user == null}">
+                <a th:href="@{/login}">Авторизация</a> / <a th:href="@{/reg}">Регистрация</a>
+            </div>
         </div>
     </nav>
 </div>
